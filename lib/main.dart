@@ -1,19 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movie_db_practical/screen/bottom_nav_bar.dart';
+import 'package:movie_db_practical/screen/splash/splash_screen.dart';
+import 'package:movie_db_practical/utils/color_constant.dart';
+import 'package:movie_db_practical/utils/constants.dart';
 
-import 'utils/color_constant.dart';
+import 'bloc/top_movies_bloc.dart';
+import 'data/service_locator.dart';
 
 void main() {
-  runApp(const MyApp());
+  WidgetsFlutterBinding.ensureInitialized();
+  setUpLocator();
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  MyApp({Key? key}) : super(key: key);
 
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Moviezz',
+      title: 'Movie database',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         hoverColor: Colors.transparent,
@@ -33,7 +41,8 @@ class MyApp extends StatelessWidget {
           ),
         );
       },
-      //home: const SplashScreen()
+      home: const SplashScreen()
+
     );
   }
 }
@@ -41,10 +50,10 @@ class MyApp extends StatelessWidget {
 class NoGlowBehavior extends ScrollBehavior {
   @override
   Widget buildViewportChrome(
-    BuildContext context,
-    Widget child,
-    AxisDirection axisDirection,
-  ) {
+      BuildContext context,
+      Widget child,
+      AxisDirection axisDirection,
+      ) {
     return child;
   }
 }
