@@ -1,5 +1,7 @@
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:dynamic_color/dynamic_color.dart';
 
 import 'bloc/top_movies_bloc.dart';
 import 'data/service_locator.dart';
@@ -13,33 +15,33 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Movie database',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          hoverColor: Colors.transparent,
-          highlightColor: Colors.transparent,
-          scaffoldBackgroundColor: ColorConstant.primaryColor,
-          primarySwatch: Colors.blue,
-          splashColor: Colors.transparent,
-          primaryColor: ColorConstant.blue500,
-          textTheme: GoogleFonts.interTextTheme(),
-        ),
-        builder: (context, child) {
-          return MediaQuery(
-            data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
-            child: ScrollConfiguration(
-              behavior: NoGlowBehavior(),
-              child: child!,
+    return DynamicColorBuilder(
+      builder: (lightDynamic, darkDynamic) => MaterialApp(
+          title: 'Movie database',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            useMaterial3: true,
+            colorScheme: ColorScheme.fromSeed(
+              seedColor: Colors.red,
             ),
-          );
-        },
-        home: const SplashScreen());
+            textTheme: GoogleFonts.interTextTheme(),
+          ),
+          builder: (context, child) {
+            return MediaQuery(
+              data: MediaQuery.of(context).copyWith(textScaleFactor: 1.0),
+              child: ScrollConfiguration(
+                behavior: NoGlowBehavior(),
+                child: child!,
+              ),
+            );
+          },
+          home: const SplashScreen()),
+    );
   }
 }
 
