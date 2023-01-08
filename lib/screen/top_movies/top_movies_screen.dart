@@ -3,9 +3,9 @@ import 'dart:core';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movie_db_practical/data/model/top_movies/results.dart';
-import 'package:movie_db_practical/utils/color_constant.dart';
-import 'package:movie_db_practical/widget/custom_text.dart';
+import '/data/model/top_movies/results.dart';
+import '/utils/color_constant.dart';
+import '/widget/custom_text.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 import '../../bloc/top_movies_bloc.dart';
@@ -24,20 +24,18 @@ class TopMoviesScreen extends StatefulWidget {
 }
 
 class _TopMoviesScreenState extends State<TopMoviesScreen> {
-  List<Results> listMovies=[];
+  List<Results> listMovies = [];
   final RefreshController _refreshController =
-  RefreshController(initialRefresh: false);
+      RefreshController(initialRefresh: false);
 
-  int page=2;
+  int page = 2;
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) =>
-      TopMoviesBloc()
-        ..add(const LoadAllGenres()),
+      create: (context) => TopMoviesBloc()..add(const LoadAllGenres()),
       child: BlocListener<TopMoviesBloc, TopMoviesState>(
         listener: (context, state) {
-          if(state.movieStatus == MovieStatus.loaded) {
+          if (state.movieStatus == MovieStatus.loaded) {
             listMovies.addAll(state.movies);
             _refreshController.loadComplete();
           }
@@ -54,51 +52,49 @@ class _TopMoviesScreenState extends State<TopMoviesScreen> {
                       appBarWidget(),
                       Expanded(
                         child: SmartRefresher(
-
-                          onLoading: ()async{
-                            BlocProvider.of<TopMoviesBloc>(context).add(LoadTopMoviesInfo(page: page++));
-
+                          onLoading: () async {
+                            BlocProvider.of<TopMoviesBloc>(context)
+                                .add(LoadTopMoviesInfo(page: page++));
                           },
                           controller: _refreshController,
                           enablePullUp: true,
                           enablePullDown: false,
                           child: ListView.builder(
-                              shrinkWrap: true,
-                              itemCount: listMovies.length,
-                              itemBuilder: (context, index) {
-                                String movieGenre =
-                                getGenreNameFromID(listMovies[index].genreIds, index);
-                                return MovieCardView(
-                                  id: listMovies[index].id!,
-                                  name: listMovies[index].title!,
-                                  poster: listMovies[index].posterPath!,
-                                  color: Colors.white,
-                                  date: listMovies[index].releaseDate!,
-                                  rate: listMovies[index].voteAverage!,
-                                  overView: listMovies[index].overview!,
-                                  genre: movieGenre,
-                                  isTopMostMovie: index == 0 ? true : false,
-                                  onTap: () {
-                                    pushNewScreen(
-                                      context,
-                                      MovieDetailsScreen(
-                                        id: listMovies[index].id!,
-                                        name: listMovies[index].title!,
-                                        genre: movieGenre,
-                                        rate: listMovies[index].voteAverage!,
-                                        overView: listMovies[index].overview!,
-                                        poster: listMovies[index].posterPath!,
-                                        color: Colors.white,
-                                        isTopMostMovie: index == 0 ? true : false,
-                                        date: listMovies[index].releaseDate!,
-                                      ),
-                                    );
-                                  },
-                                  padding: getPadding(
-                                      left: 20, right: 20),
-                                );
-                              },
-                              ),
+                            shrinkWrap: true,
+                            itemCount: listMovies.length,
+                            itemBuilder: (context, index) {
+                              String movieGenre = getGenreNameFromID(
+                                  listMovies[index].genreIds, index);
+                              return MovieCardView(
+                                id: listMovies[index].id!,
+                                name: listMovies[index].title!,
+                                poster: listMovies[index].posterPath!,
+                                color: Colors.white,
+                                date: listMovies[index].releaseDate!,
+                                rate: listMovies[index].voteAverage!,
+                                overView: listMovies[index].overview!,
+                                genre: movieGenre,
+                                isTopMostMovie: index == 0 ? true : false,
+                                onTap: () {
+                                  pushNewScreen(
+                                    context,
+                                    MovieDetailsScreen(
+                                      id: listMovies[index].id!,
+                                      name: listMovies[index].title!,
+                                      genre: movieGenre,
+                                      rate: listMovies[index].voteAverage!,
+                                      overView: listMovies[index].overview!,
+                                      poster: listMovies[index].posterPath!,
+                                      color: Colors.white,
+                                      isTopMostMovie: index == 0 ? true : false,
+                                      date: listMovies[index].releaseDate!,
+                                    ),
+                                  );
+                                },
+                                padding: getPadding(left: 20, right: 20),
+                              );
+                            },
+                          ),
                         ),
                       ),
                     ],
@@ -130,7 +126,13 @@ class _TopMoviesScreenState extends State<TopMoviesScreen> {
       padding: const EdgeInsets.all(20.0),
       child: Row(
         children: [
-          Expanded(child: CustomTextWidget(text: "Top Movies",color: ColorConstant.white,fontSize: 40,fontWeight: FontWeight.w600,)),
+          Expanded(
+              child: CustomTextWidget(
+            text: "Top Movies",
+            color: ColorConstant.white,
+            fontSize: 40,
+            fontWeight: FontWeight.w600,
+          )),
           Icon(
             CupertinoIcons.search,
             color: Colors.white.withOpacity(0.8),

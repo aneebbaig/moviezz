@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movie_db_practical/utils/color_constant.dart';
-import 'package:movie_db_practical/widget/custom_text.dart';
-import 'package:movie_db_practical/widget/rate_icon_display.dart';
+import '/utils/color_constant.dart';
+import '/widget/custom_text.dart';
+import '/widget/rate_icon_display.dart';
 
 import '../utils/math_util.dart';
 import 'common_imageview.dart';
@@ -84,10 +84,9 @@ class MovieCardView extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  height:  getVerticalSize(
+                  height: getVerticalSize(
                     170.00,
                   ),
-
                   child: Padding(
                     padding: getPadding(
                       left: 15,
@@ -100,26 +99,29 @@ class MovieCardView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
-                        isTopMostMovie?Row(
-                          children: [
-                            CommonImageView(
-                              svgPath:
-                              "assets/award_ribbon.svg",
-
-                            ),
-                            const SizedBox(width: 8,),
-                            CustomTextWidget(
-                              text: "Top movie this week",
-                              fontSize: 14,
-                              textAlign: TextAlign.left,
-                              fontWeight: FontWeight.w400,
-                              spacingHeight: 1.33,
-                              color: color.withOpacity(0.8),
-                            ),
-                          ],
-                        ):Container(),
-
-                        const SizedBox(height: 8,),
+                        isTopMostMovie
+                            ? Row(
+                                children: [
+                                  CommonImageView(
+                                    svgPath: "assets/award_ribbon.svg",
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  CustomTextWidget(
+                                    text: "Top movie this week",
+                                    fontSize: 14,
+                                    textAlign: TextAlign.left,
+                                    fontWeight: FontWeight.w400,
+                                    spacingHeight: 1.33,
+                                    color: color.withOpacity(0.8),
+                                  ),
+                                ],
+                              )
+                            : Container(),
+                        const SizedBox(
+                          height: 8,
+                        ),
                         SizedBox(
                             width: getHorizontalSize(
                               151.00,
@@ -170,7 +172,8 @@ class MovieCardView extends StatelessWidget {
                                           value: ((rate * 5) / 10),
                                         ),
                                         CustomTextWidget(
-                                          text: "  ${num.parse(((rate * 5) / 10).toStringAsFixed(1))}/5",
+                                          text:
+                                              "  ${num.parse(((rate * 5) / 10).toStringAsFixed(1))}/5",
                                           fontSize: 12,
                                           textAlign: TextAlign.left,
                                           fontWeight: FontWeight.w400,

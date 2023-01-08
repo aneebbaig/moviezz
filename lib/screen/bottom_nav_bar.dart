@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:movie_db_practical/screen/statistics/statistics_screen.dart';
-import 'package:movie_db_practical/screen/top_movies/top_movies_screen.dart';
-import 'package:movie_db_practical/screen/trailer/trailer_screen.dart';
+import '/screen/statistics/statistics_screen.dart';
+import '/screen/top_movies/top_movies_screen.dart';
+import '/screen/trailer/trailer_screen.dart';
 
 import 'home/home_screen.dart';
 
@@ -14,7 +14,6 @@ class BottomNavBar extends StatefulWidget {
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
-
   @override
   void initState() {
     super.initState();
